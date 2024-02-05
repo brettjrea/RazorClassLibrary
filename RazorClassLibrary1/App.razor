@@ -1,0 +1,16 @@
+﻿@using Microsoft.AspNetCore.Components.Routing
+@using RazorClassLibrary1.Components.Layout
+@using RazorClassLibrary1.Components.Pages
+
+<Router AppAssembly="@typeof(App).Assembly">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(RazorClassLibrary1.Components.Layout.MainLayout)" />
+        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+    </Found>
+    <NotFound>
+        <PageTitle>Not found</PageTitle>
+        <LayoutView Layout="@typeof(RazorClassLibrary1.Components.Layout.MainLayout)">
+            <p role="alert">Sorry, there's nothing at this address.</p>
+        </LayoutView>
+    </NotFound>
+</Router>

@@ -1,0 +1,47 @@
+﻿@page "/unitygame"
+
+@using Microsoft.JSInterop
+
+@using RazorClassLibrary1
+@using RazorClassLibrary1.Components.Layout
+@using RazorClassLibrary1.Components.Pages
+
+@inject IJSRuntime JSRuntime
+
+<div id="unity-container" class="unity-desktop">
+    <canvas id="unity-canvas" width="960" height="600" tabindex="-1"></canvas>
+    <div id="unity-loading-bar">
+        <div id="unity-logo"></div>
+        <div id="unity-progress-bar-empty">
+            <div id="unity-progress-bar-full"></div>
+        </div>
+    </div>
+    <div id="unity-warning"></div>
+    <div id="unity-footer">
+        <div id="unity-logo-title-footer"></div>
+    </div>
+</div>
+
+@code {
+    private const string BuildUrl = "_content/RazorClassLibrary1/SwordMan/Build";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            try
+            {
+                await JSRuntime.InvokeVoidAsync("loadUnityGame", BuildUrl);
+            }
+            catch (JSException jsEx)
+            {
+                Console.WriteLine("JavaScript error: " + jsEx.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An error occurred: " + ex.Message);
+            }
+        }
+    }
+}
+
